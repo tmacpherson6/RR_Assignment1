@@ -4,7 +4,7 @@ author: "Thomas MacPherson"
 date: "2024-02-28"
 output: html_document
 ---
-In the following document, I will be including large chunks of text to describe my intention for that section. I will also be using large chunks of code to actually run the processing/analysis of the data. There will be smaller comments within these coding blocks to aide in the understanding of the code sections.
+In the following document, I will be including large chunks of text to describe my intention for that section. I will also be using large chunks of code to actually run the processing/analysis of the data. There will be smaller comments within these coding blocks to aide in the understanding of the code sections. 
 
 ## Loading and preprocessing the data
 A copy of the data should be contained within the repository.  
