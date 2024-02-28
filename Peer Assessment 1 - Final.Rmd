@@ -111,9 +111,27 @@ for (x in names(data2)) {
   u<-cbind(imputed,filter(data,interval==x))
   data3<-rbind(data3,u)
 }
-## rearrange to the original orginization
+## rearrange to the original organization
 data3<-arrange(data3,date,interval)
-
+## Run the same cmparison as question 1 to find total steps per day.
+data3$date<-as.factor(data3$date)
+data3$imputed<-as.integer(data3$imputed)
+## Sum the data based on the factor using tapply
+data4<-tapply(data3$imputed,data3$date,FUN=sum)
+## Plot a histogram showing how often we hit a certain number of steps per day
+par(mfrow=c(2,1))
+hist(data1,xlab="total steps per day",main="Frequency Based on Total Steps Per Day")
+rug(data)
+hist(data4,xlab="total steps per day (imputed)",main="Frequency Based on Total Steps Per Day")
+rug(data)
+## Calculate the Mean and Median of total Steps taken per day
+x<-summary(data4)
+## Display the Mean steps taken per day
+x[4]
+## Display the Median steps taken per day
+x[3]
 ```
+
+As you can see, the Mean and Median are different in this scenario however, the values are quite similar. This is what we are looking for, because we don't want our imputed values to dramatically skew our data as they are estimations and not actual recordings.
 
 ## Are there differences in activity patterns between weekdays and weekends?
