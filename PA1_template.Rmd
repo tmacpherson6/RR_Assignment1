@@ -196,3 +196,5 @@ par(mfrow=c(2,1))
 plot(names(weekday),weekday,type="l",xlab="",ylab="Weekday Average Steps",main="Most Active Times of Day: Weekday vs Weekend")
 plot(names(weekend),weekend,type="l",xlab="Time of Day",ylab="Weekend Average Steps")
 ```
+
+Here we can see that there is a clear difference between weekday and weekend step activity, likely due to work.
