@@ -6,6 +6,21 @@ output: html_document
 ---
 In the following document, I will be including large chunks of text to describe my intention for that section. I will also be using large chunks of code to actually run the processing/analysis of the data. There will be smaller comments within these coding blocks to aide in the understanding of the code sections. I just used the base plotting system for simplicity.
 
+Let's start by setting up our environment
+```{r setting the global environment,echo=TRUE}
+## Check our current working directory
+getwd()
+## If it is not what we wanted set working directory
+#setwd("C:/Users/..) commented out because we have it
+## Clear our global environment to start
+rm(list=ls())
+## Load our usual libraries
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(lubridate)
+```
+
 ## Loading and preprocessing the data
 A copy of the data should be contained within the repository.  
 Data was obtained from: https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip  
