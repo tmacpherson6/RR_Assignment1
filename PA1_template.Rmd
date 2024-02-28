@@ -4,12 +4,12 @@ author: "Thomas MacPherson"
 date: "2024-02-28"
 output: html_document
 ---
-
+In the following document, I will be including large chunks of text to describe my intention for that section. I will also be using large chunks of code to actually run the processing/analysis of the data. There will be smaller comments within these coding blocks to aide in the understanding of the code sections.
 
 ## Loading and preprocessing the data
-A copy of the data should be contained within the repository. 
-Data was obtained from: https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip
-Data was obtained on: "2024-02-28 08:18:16MST"
+A copy of the data should be contained within the repository.  
+Data was obtained from: https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip  
+Data was obtained on: "2024-02-28 08:18:16MST"  
 However, if the data is not contained please run the following code:
 
 ```{r downloading data,echo=TRUE}
@@ -37,11 +37,14 @@ str(data)
 data$date<-as.Date(as.character(data$date))
 ```
 
-Looks like the data is clean and workable for now as the question says that we should ignore NA values for now.  
+Looks like the data is pretty clean and workable for now as the question says that we should ignore NA values.  
 
 ## What is mean total number of steps taken per day?
 
-The goal of this section is to calculate the total number of steps taken per day (factor based on day) Make a histogram that shows the total number of steps taken per day. It is clarified that we don't want a bar chart, we want a frequency histogram of the total number of steps taken per day. We should also calculate and report the mean and median of the total number steps taken per day.
+The goal of this section is to calculate the total number of steps taken per day (factor based on day). Make a histogram that shows the total number of steps taken per day.  
+It is clarified that we don't want a bar chart, we want a frequency histogram of the total number of steps taken per day. 
+To me, this means that we want to see how many days we had say ~10000 steps. I am proceeding with the question based on these assumptions  
+We should also calculate and report the mean and median of the total number steps taken per day.
 
 ```{r Daily Total Steps,fig.height=4,echo=TRUE}
 ## Let's get rid of the NA values because they make things difficult
@@ -52,7 +55,8 @@ data1$date<-as.factor(data1$date)
 data1<-tapply(data1$steps,data1$date,FUN=sum)
 ## Plot a histogram showing how often we hit a certain number of steps per day
 hist(data1,xlab="total steps per day",main="Frequency Based on Total Steps Per Day")
-rug(data)
+#rug(data) 
+#I love this feature but it was blocking my knit to html so I commented it out of the report
 ## Calculate the Mean and Median of total Steps taken per day
 x<-summary(data1)
 ## Display the Mean steps taken per day
@@ -121,9 +125,14 @@ data4<-tapply(data3$imputed,data3$date,FUN=sum)
 ## Plot a histogram showing how often we hit a certain number of steps per day
 par(mfrow=c(2,1))
 hist(data1,xlab="total steps per day",main="Frequency Based on Total Steps Per Day")
-rug(data)
+#rug(data)
 hist(data4,xlab="total steps per day (imputed)",main="Frequency Based on Total Steps Per Day")
-rug(data)
+#rug(data)
+```
+
+Here we can see that there are very little differences between our original histogram and our histogram after adding the imputed data. 
+
+```{r calculating mean and median,echo=TRUE}
 ## Calculate the Mean and Median of total Steps taken per day
 x<-summary(data4)
 ## Display the Mean steps taken per day
@@ -142,9 +151,11 @@ In this section, we would like to look into activity trends on weekdays versus w
 ## Let's remove the factor variable from our date column
 data3$date<-as.Date(data3$date)
 data3$imputed<-as.integer(data3$imputed)
+
 ## Let's create a new column that classifies the weekday using mutate
 data3<-mutate(data3,weekdays(data3$date))
 colnames(data3)<-c("imputed","steps","date","interval","weekday")
+
 ## Let's turn it into two factors by replacing values with either weekday or weekend, 
 data3$weekday<-replace(data3$weekday,
                       data3$weekday=="Monday"|
@@ -158,6 +169,7 @@ data3$weekday<-replace(data3$weekday,
                        data3$weekday=="Sunday",
                        "Weekend")
 data3$weekday<-as.factor(data3$weekday)
+
 ## Let's plot it. Panel plot with two time series
 weekday<-filter(data3,weekday=="Weekday")
 weekend<-filter(data3,weekday=="Weekend")
@@ -168,10 +180,4 @@ weekend<-tapply(weekend$imputed,weekend$interval,FUN=mean)
 par(mfrow=c(2,1))
 plot(names(weekday),weekday,type="l",xlab="",ylab="Weekday Average Steps",main="Most Active Times of Day: Weekday vs Weekend")
 plot(names(weekend),weekend,type="l",xlab="Time of Day",ylab="Weekend Average Steps")
-## Let's find the maximum average steps based on interval
-x<-summary(data2)
-max<-as.numeric(x[6])
-int<-names(data2[data2==max])
-## the interval containing the highest average daily steps
-int
 ```
