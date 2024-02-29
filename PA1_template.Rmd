@@ -36,7 +36,7 @@ However, if the data is not contained please run the following code:
 ## dateDownlaoded<-date()
 ```
 
-First thing I want to do is unzip the file to .csv file so that we can read it into r.
+First thing I want to do is unzip the file to .csv file so that we can read it into R.
 
 ```{r unzip file, echo=TRUE}
 zipF<-"./activity.zip"
@@ -104,7 +104,7 @@ int<-names(data2[data2==max])
 int
 ```
 
-So, we can see that 8:35am is the most active time when averaged over the time period with approximately 206 steps per day in the 5 min period. 
+So, we can see that 8:35-8:39am is the most active time when averaged over the time period with approximately 206 steps per day in the 5 min period. 
 
 ## Imputing missing values
 
